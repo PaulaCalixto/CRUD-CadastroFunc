@@ -1,0 +1,18 @@
+<div class="container">
+  <mat-card>
+    <mat-card-content>
+      <form class="login-form">
+        <mat-form-field>
+          <input name="userApp" matInput placeholder="Usuário" [(ngModel)]="username">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="password" name="passwordApp" placeholder="Senha" [(ngModel)]="password">
+        </mat-form-field>
+        <span>
+          {{mensagemLogin}}
+        </span>
+        <button (click)="btnLogin()" mat-raided-button color="primary" type="submit">Entrar</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

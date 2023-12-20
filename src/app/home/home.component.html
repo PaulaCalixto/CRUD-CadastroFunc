@@ -1,0 +1,65 @@
+<mat-toolbar>
+  <mat-list-item (click)="drawer.toggle()" (click)="openLogin()" role="listitem">
+    <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="login"></mat-icon>
+    <span>Login</span>
+  </mat-list-item>
+  <span class="example-spacer"></span>
+  <button mat-raised-button (click)="openAddEditEmpForm()">Adicionar Funcionário</button>
+</mat-toolbar>
+
+<div class="main-body">
+  <mat-form-field>
+    <mat-label>Filtro</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input aria-label="Filtro por nome">
+  </mat-form-field>
+
+  <div class="table-container">
+    <p id="table-description" class="sr-only">Tabela de Funcionários</p>
+  <table mat-table [dataSource]="dataSource" matSort aria-describedby="table-description" caption="Lista de Funcionários">
+
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+        <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+      </ng-container>
+
+      <!-- Progress Column -->
+      <ng-container matColumnDef="nome">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nome </th>
+        <td mat-cell *matCellDef="let row"> {{row.nome}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="sobrenome">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Sobrenome </th>
+        <td mat-cell *matCellDef="let row"> {{row.sobrenome}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> E-mail </th>
+        <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="data">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Data de nascimento </th>
+        <td mat-cell *matCellDef="let row"> {{ formatDate(row.data) }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="acao">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Ação </th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-icon-button color="primary" (click)="openEditForm(row)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteEmployee(row.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+  </div>
+</div>
